@@ -24,10 +24,14 @@ I advise you to step through the `Platform.php` file to get a sense of what's wh
 
 Since the Magento 2 download comes with the `vendor` folder already populated with the needed Composer packages you don't need to deal with running `composer install` locally.  They also, however, included the `vendor` folder in the `.gitignore`, which means that when you check your project into Git and push it to Platform.sh, none of your Composer dependencies are there.
 
+Note that you'll need to remove the leading `/` from the Magento `.gitignore` file in order to exclude Magento ignored files.
+
 This is where our new [Authenticated Composer repositories](https://docs.platform.sh/tutorials/composer-auth.html#authenticated-composer-repositories) feature earns its bacon.  Please read that link for greater understanding.
 
 You'll need to have a Magento account, and then follow [this guide](http://devdocs.magento.com/guides/v2.0/install-gde/prereq/connect-auth.html) to get your credentials for the Magento Composer repo.
 
 The [`hooks.build`](https://github.com/JGrubb/magento2-platform-sh/blob/master/.platform.app.yaml#L51-L57) command present in this repo's `.platform.app.yaml` assumes that you will place your credentials into environment variables named  `magento_user` and `magento_pass`, but feel free to name them whatever and alter the build hook accordingly.
+
+These variables need to be configured in your Platform.sh *project* settings (not the environment) and the checkbox *Visible during build* must be checked.
 
 After all this, everything should Just Work.
